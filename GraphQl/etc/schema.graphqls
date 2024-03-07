@@ -1,0 +1,77 @@
+type Data {
+    id: ID!
+    name: String!
+    gender: String!
+    email: String!
+    status: String!
+    feedback: String!
+}
+
+type Query {
+    getDataById(id: ID!): Data @resolver(class: "KK\\GraphQl\\Model\\Resolver\\GetDataById") @doc(description: "Get KK'S Custom Form Data By Id.")
+}
+
+
+type Mutation {
+
+    createData(
+        input: CreateDataInput!
+        @doc(description: "An input object that contains changes related to the posts.")
+    ): CreateDataOutput
+        @resolver(class: "KK\\GraphQl\\Model\\Resolver\\CreateData")
+        @doc(description: "Create custom form data.")
+
+
+    updateData(
+        input: UpdateDataInput!
+        @doc(description: "An input object that contains changes related to the posts.")
+    ): UpdateDataOutput
+        @resolver(class: "KK\\GraphQl\\Model\\Resolver\\UpdateData")
+        @doc(description: "Update custom form data.")
+
+    deleteData(id: ID!): DeleteDataResponse @resolver(class: "KK\\GraphQl\\Model\\Resolver\\DeleteData") @doc(description: "Delete custom form data by ID.")
+
+
+}
+
+input CreateDataInput @doc(description: "Contains details about the posts.") {
+    name: String!
+    gender: String!
+    email: String!
+    status: String!
+    feedback: String
+}
+
+type CreateDataOutput {
+    id: ID!
+    name: String!
+    gender: String!
+    email: String!
+    status: String!
+    feedback: String
+}
+
+
+input UpdateDataInput {
+  id: ID!
+  name: String!
+  gender: String!
+  email: String!
+  status: String!
+  feedback: String
+}
+
+type UpdateDataOutput {
+  id: ID!
+  name: String!
+  gender: String!
+  email: String!
+  status: String!
+  feedback: String
+}
+
+
+type DeleteDataResponse {
+    success: Boolean!
+    message: String
+}
